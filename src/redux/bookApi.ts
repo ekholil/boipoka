@@ -53,6 +53,13 @@ export const bookApi = createApi({
         body,
       }),
     }),
+    postReview: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `review/${id}`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 export const {
@@ -63,4 +70,5 @@ export const {
   useCreateBookMutation,
   useDeleteBookMutation,
   useUpdateBookMutation,
+  usePostReviewMutation,
 } = bookApi;
