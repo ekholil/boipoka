@@ -1,6 +1,16 @@
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "./hooks";
+import { logOut } from "./redux/userSlice";
 
 const Navbar = () => {
+  const user = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    dispatch(logOut());
+    navigate("/signin");
+  };
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -38,15 +48,23 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Item 1</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a>Item 3</a>
+            <Link to="/all-books">All Books</Link>
           </li>
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {user.accessToken ? (
+          <button onClick={handleLogout} className="btn">
+            Log Out
+          </button>
+        ) : (
+          <Link to="/signin" className="btn">
+            Sign in
+          </Link>
+        )}
       </div>
     </div>
   );

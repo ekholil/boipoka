@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSigninMutation } from "./redux/bookApi";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { setUser } from "./redux/userSlice";
+import { useAppDispatch, useAppSelector } from "./hooks";
 type FormValues = {
   email: string;
   password: string;
@@ -11,13 +11,17 @@ type FormValues = {
 
 export default function Signin() {
   const { register, handleSubmit } = useForm<FormValues>();
+  const user = useAppSelector((state) => state.user);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [signin, { isError, isSuccess, data }] = useSigninMutation();
   const onSubmit: SubmitHandler<FormValues> = (formdata) => {
     signin(formdata);
   };
   useEffect(() => {
+    if (user.accessToken) {
+      navigate("/");
+    }
     if (isSuccess) {
       console.log("User login success", data);
       localStorage.setItem("user", JSON.stringify(data.data));
