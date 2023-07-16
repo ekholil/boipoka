@@ -8,6 +8,13 @@ import SignUp from "./Signup.tsx";
 import Signin from "./Signin.tsx";
 import App from "./App.tsx";
 import Home from "./Home.tsx";
+import AllBooks from "./AllBooks.tsx";
+import BookDetails from "./BookDetails.tsx";
+import AddNewBook from "./addNewBook.tsx";
+import { PrivateRoute } from "./PrivateRoute.tsx";
+import "react-toastify/dist/ReactToastify.css";
+import EditBook from "./EditBook.tsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,6 +31,30 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/all-books",
+        element: <AllBooks />,
+      },
+      {
+        path: "/add-new-book",
+        element: (
+          <PrivateRoute>
+            <AddNewBook />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update-book/:id",
+        element: (
+          <PrivateRoute>
+            <EditBook />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/book/:id",
+        element: <BookDetails />,
       },
     ],
   },

@@ -4,6 +4,7 @@ type userDataType = {
   accessToken: string | null;
   name: string | null;
   email: string | null;
+  id: string | null;
 };
 
 const storedData = localStorage.getItem("user");
@@ -16,6 +17,7 @@ const initialState: userDataType = parsedData || {
   accessToken: null,
   name: null,
   email: null,
+  id: null,
 };
 
 export const userSlice = createSlice({
@@ -27,10 +29,14 @@ export const userSlice = createSlice({
       state.accessToken = action.payload.accessToken;
       state.name = action.payload.name;
       state.email = action.payload.email;
+      state.id = action.payload.id;
     },
     logOut: (state) => {
       localStorage.removeItem("user");
-      (state.accessToken = null), (state.email = null), (state.name = null);
+      (state.accessToken = null),
+        (state.email = null),
+        (state.name = null),
+        (state.id = null);
     },
   },
 });
