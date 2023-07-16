@@ -1,14 +1,11 @@
-import { useGetBooksQuery } from "./redux/bookApi";
+import Layout from "./Layout";
 
-function App() {
-  const { data, error, isLoading } = useGetBooksQuery();
-  console.log(data);
+const App = () => {
   return (
-    <>
-      <h3>All books</h3>
-      <div></div>
-    </>
+    <div>
+      <Layout />
+    </div>
   );
-}
+};
 
 export default App;

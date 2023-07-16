@@ -8,6 +8,21 @@ export const bookApi = createApi({
     getBooks: builder.query({
       query: () => "books",
     }),
+    signup: builder.mutation({
+      query: (body) => ({
+        url: "auth/signup",
+        method: "POST",
+        body,
+      }),
+    }),
+    signin: builder.mutation({
+      query: (body) => ({
+        url: "auth/login",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
-export const { useGetBooksQuery } = bookApi;
+export const { useGetBooksQuery, useSignupMutation, useSigninMutation } =
+  bookApi;
