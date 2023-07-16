@@ -11,7 +11,7 @@ type FormValues = {
 export default function SignUp() {
   const { register, handleSubmit } = useForm<FormValues>();
   const navigate = useNavigate();
-  const [signup, { isError, isSuccess, data }] = useSignupMutation();
+  const [signup, { isSuccess }] = useSignupMutation();
   const onSubmit: SubmitHandler<FormValues> = (formdata) => {
     signup(formdata);
   };

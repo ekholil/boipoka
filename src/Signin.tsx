@@ -14,7 +14,7 @@ export default function Signin() {
   const user = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [signin, { isError, isSuccess, data }] = useSigninMutation();
+  const [signin, { isSuccess, data }] = useSigninMutation();
   const onSubmit: SubmitHandler<FormValues> = (formdata) => {
     signin(formdata);
   };

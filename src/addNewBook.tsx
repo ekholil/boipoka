@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useCreateBookMutation } from "./redux/bookApi";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "./hooks";
 type FormValues = {
   title: string;
   author: string;
@@ -12,10 +10,8 @@ type FormValues = {
 
 export default function AddNewBook() {
   const { register, handleSubmit } = useForm<FormValues>();
-  const user = useAppSelector((state) => state.user);
-  const navigate = useNavigate();
-  const [createBook, { isSuccess, data, isError, error }] =
-    useCreateBookMutation();
+
+  const [createBook, { isError, error }] = useCreateBookMutation();
   const onSubmit: SubmitHandler<FormValues> = (formdata) => {
     console.log(formdata);
     createBook(formdata);

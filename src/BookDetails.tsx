@@ -24,7 +24,7 @@ const BookDetails = () => {
       deleteBook(data?.data?.id);
     }
   };
-  const postReviewHandle = (e) => {
+  const postReviewHandle = (e: any) => {
     e.preventDefault();
     postReview({
       id,
@@ -120,7 +120,7 @@ const BookDetails = () => {
             <h2 className="text-3xl mt-4 font-semibold">Reviews : </h2>
           </div>
           <div className="flex flex-col gap-4">
-            {data?.data?.reveiws.map((item) => (
+            {data?.data?.reveiws.map((item: any) => (
               <div key={item.review} className="border p-2 rounded-md bg-white">
                 <h2>{item.name}</h2>
                 <p>{item.review}</p>

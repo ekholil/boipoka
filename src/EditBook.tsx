@@ -1,12 +1,7 @@
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  useCreateBookMutation,
-  useGetSingleBookQuery,
-  useUpdateBookMutation,
-} from "./redux/bookApi";
+import { useGetSingleBookQuery, useUpdateBookMutation } from "./redux/bookApi";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "./hooks";
 type FormValues = {
   title?: string;
   author?: string;
@@ -16,10 +11,10 @@ type FormValues = {
 
 export default function EditBook() {
   const { register, handleSubmit } = useForm<FormValues>();
-  const user = useAppSelector((state) => state.user);
+
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data, isLoading } = useGetSingleBookQuery(id);
+  const { data } = useGetSingleBookQuery(id);
   const [updateBook, { isSuccess, error }] = useUpdateBookMutation();
   const onSubmit: SubmitHandler<FormValues> = (formdata) => {
     console.log(formdata);
