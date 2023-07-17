@@ -12,8 +12,8 @@ const Navbar = () => {
     navigate("/signin");
   };
   return (
-    <div className="container">
-      <div className="navbar bg-base-100 shadow-lg">
+    <div className="navbar bg-base-100 shadow-lg">
+      <div className="container">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -54,6 +54,13 @@ const Navbar = () => {
             <li>
               <Link to="/all-books">All Books</Link>
             </li>
+            {user.accessToken ? (
+              <li>
+                <Link to="/wishlist">My Wishlist</Link>
+              </li>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
         <div className="navbar-end">

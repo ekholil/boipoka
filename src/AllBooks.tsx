@@ -1,6 +1,6 @@
 const AllBooks = () => {
   return (
-    <div>
+    <div className="container">
       <h2>This is all books page</h2>
     </div>
   );

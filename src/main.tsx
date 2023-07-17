@@ -14,6 +14,7 @@ import AddNewBook from "./addNewBook.tsx";
 import { PrivateRoute } from "./PrivateRoute.tsx";
 import "react-toastify/dist/ReactToastify.css";
 import EditBook from "./EditBook.tsx";
+import Wishlist from "./Wishlist.tsx";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddNewBook />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/wishlist",
+        element: (
+          <PrivateRoute>
+            <Wishlist />
           </PrivateRoute>
         ),
       },
