@@ -6,6 +6,7 @@ import {
 } from "./redux/bookApi";
 import { Watch } from "react-loader-spinner";
 import bookImg from "./assets/book.png";
+import avatar from "./assets/user.png";
 import { useAppSelector } from "./hooks";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -33,6 +34,7 @@ const BookDetails = () => {
         review,
       },
     });
+    setReview("");
   };
   useEffect(() => {
     if (isSuccess) {
@@ -95,6 +97,7 @@ const BookDetails = () => {
                 <form onSubmit={postReviewHandle}>
                   <input
                     type="text "
+                    value={review}
                     placeholder="Write your review "
                     className="mr-4 p-2 rounded-lg"
                     onChange={(e) => setReview(e.target.value)}
@@ -120,12 +123,28 @@ const BookDetails = () => {
             <h2 className="text-3xl mt-4 font-semibold">Reviews : </h2>
           </div>
           <div className="flex flex-col gap-4">
-            {data?.data?.reveiws.map((item: any) => (
-              <div key={item.review} className="border p-2 rounded-md bg-white">
-                <h2>{item.name}</h2>
-                <p>{item.review}</p>
-              </div>
-            ))}
+            {data?.data?.reveiws ? (
+              data?.data?.reveiws.map((item: any) => (
+                <div
+                  key={item.review}
+                  className="border flex gap-2 p-2 rounded-md bg-white"
+                >
+                  <img
+                    className="self-start"
+                    width={40}
+                    height={40}
+                    src={avatar}
+                    alt=""
+                  />
+                  <div>
+                    <h2 className="text-xl font-semibold">{item.name}</h2>
+                    <p>{item.review}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No reviews given yet</p>
+            )}
           </div>
         </div>
       )}

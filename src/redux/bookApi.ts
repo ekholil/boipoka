@@ -12,12 +12,14 @@ export const bookApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ["comments"],
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => "books",
     }),
     getSingleBook: builder.query({
       query: (id) => `books/${id}`,
+      providesTags: ["comments"],
     }),
     signup: builder.mutation({
       query: (body) => ({
@@ -59,6 +61,7 @@ export const bookApi = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["comments"],
     }),
   }),
 });
