@@ -1,9 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import bookImg from "./assets/book.png";
-import { useGetBooksQuery } from "./redux/bookApi";
+import { useAddToWishListMutation, useGetBooksQuery } from "./redux/bookApi";
 import { Watch } from "react-loader-spinner";
+import { useAppSelector } from "./hooks";
+import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 function Home() {
   const { data, isLoading } = useGetBooksQuery(undefined);
+  const user = useAppSelector((state) => state.user);
+  const [addToWishList, { isSuccess }] = useAddToWishListMutation();
+  const navigate = useNavigate();
+  const handlewishlist = (book: any) => {
+    if (!user.email) {
+      navigate("/signin");
+    } else {
+      addToWishList(book);
+    }
+  };
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Added to wishlist");
+    }
+  }, [isSuccess]);
   return (
     <div className="container">
       <h3 className="text-3xl font-semibold text-center mb-5 md:m-8">
@@ -33,6 +51,12 @@ function Home() {
               <h2 className="text-xl">{book.title}</h2>
               <p>Author : {book?.author}</p>
               <p className="mb-4">Genre : {book?.genre}</p>
+              <button
+                onClick={() => handlewishlist(book)}
+                className="btn btn-secondary mb-3"
+              >
+                Add To Wishlist
+              </button>
               <Link to={`/book/${book?._id}`} className="btn btn-primary">
                 See Details
               </Link>
@@ -40,6 +64,7 @@ function Home() {
           ))
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }
